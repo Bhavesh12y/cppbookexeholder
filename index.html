@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CppBook — C++ Notebook</title>
+  <meta name="description" content="Documentation and releases for CppBook, a local Jupyter-like notebook IDE for C++.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#home">
+        <span class="brand-mark">C++</span>
+        <span><b>CppBook</b><small>Developer Notebook</small></span>
+      </a>
+      <nav>
+        <a href="#home">Overview</a>
+        <a href="#download">Downloads</a>
+        <a href="#features">Features</a>
+        <a href="#quickstart">Quick Start</a>
+        <a href="#architecture">How it works</a>
+        <a href="#shortcuts">Shortcuts</a>
+        <a href="#config">Configuration</a>
+        <a href="#security">Security</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="dot"></span> Local-first · Windows
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div class="crumb">CppBook / Documentation</div>
+        <div class="top-actions">
+          <a class="ghost" href="#download">Releases</a>
+          <a class="primary small" href="#quickstart">Get started</a>
+        </div>
+      </header>
+
+      <section id="home" class="hero section">
+        <div class="eyebrow">C++ NOTEBOOK IDE · v1.0.0</div>
+        <h1>Write. Run. Learn.<br><span>All in one C++ notebook.</span></h1>
+        <p class="hero-copy">CppBook is a local Jupyter-like notebook IDE for C++. Combine executable C++ cells, Markdown notes, Monaco editing, persistent notebook workflows and a desktop experience.</p>
+        <div class="hero-actions">
+          <a class="primary" href="#download">Download CppBook</a>
+          <a class="secondary" href="#features">Explore features</a>
+        </div>
+        <div class="hero-meta">
+          <span>Windows</span><span>Electron</span><span>FastAPI</span><span>Monaco</span><span>g++</span>
+        </div>
+      </section>
+
+      <section id="download" class="section">
+        <div class="section-head">
+          <div><div class="eyebrow">RELEASES</div><h2>Downloads</h2></div>
+          <span class="badge">Latest · 1.0.0</span>
+        </div>
+        <div class="release-card">
+          <div class="release-icon">C++</div>
+          <div class="release-main">
+            <div class="release-title"><h3>CppBook Setup 1.0.0</h3><span class="stable">Stable</span></div>
+            <p>Windows x64 installer · Electron desktop app · NSIS</p>
+            <div class="release-details"><span>Version 1.0.0</span><span>Windows x64</span><span>Unsigned build</span></div>
+          </div>
+          <a class="primary" href="downloads/CppBook%20Setup%201.0.0.exe">Download .exe</a>
+        </div>
+        <div class="notice"><b>Distribution note:</b> This installer is unsigned in the current local build. Windows SmartScreen may show a trust warning. For public distribution, use a code-signing certificate.</div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="eyebrow">WHAT'S INSIDE</div><h2>Built for real C++ workflows.</h2>
+        <div class="grid">
+          <article><div class="icon">▣</div><h3>Notebook cells</h3><p>Mix C++ and Markdown cells. Run one cell or execute all code cells sequentially.</p></article>
+          <article><div class="icon">⌘</div><h3>Monaco Editor</h3><p>Syntax highlighting, folding, brackets, line numbers, snippets and an optional minimap.</p></article>
+          <article><div class="icon">↻</div><h3>Persistent state</h3><p>Compile-and-replay execution preserves variables, functions and classes across normal top-to-bottom workflows.</p></article>
+          <article><div class="icon">▶</div><h3>Real compiler</h3><p>Cells are compiled and executed through the system C++ compiler rather than simulated execution.</p></article>
+          <article><div class="icon">▤</div><h3>Notebook files</h3><p>Save and load <code>.cppnb</code> notebooks, autosave saved notebooks and keep recent notebooks.</p></article>
+          <article><div class="icon">⚙</div><h3>Developer controls</h3><p>Stop, restart, duplicate, move, clear output, import C++ files and export notebooks to .cpp.</p></article>
+        </div>
+      </section>
+
+      <section id="quickstart" class="section split">
+        <div>
+          <div class="eyebrow">QUICK START</div><h2>From install to first cell.</h2>
+          <div class="steps">
+            <div><b>01</b><div><h3>Install</h3><p>Run the Windows installer and launch CppBook from the Start Menu or desktop shortcut.</p></div></div>
+            <div><b>02</b><div><h3>Check the compiler</h3><p>CppBook detects a compiler at runtime. For the current setup, make sure <code>g++</code> is available on PATH.</p></div></div>
+            <div><b>03</b><div><h3>Create a notebook</h3><p>Add a C++ cell, write your program and press <kbd>Ctrl</kbd> + <kbd>Enter</kbd>.</p></div></div>
+            <div><b>04</b><div><h3>Save your work</h3><p>Save the notebook as <code>.cppnb</code>. Export it to a normal <code>.cpp</code> file whenever you need a standalone source file.</p></div></div>
+          </div>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar"><span></span><span></span><span></span><label>first-cell.cpp</label></div>
+          <pre><span class="muted">#include</span> &lt;iostream&gt;
+
+<span class="keyword">int</span> main() {
+    std::cout &lt;&lt; <span class="string">"Hello, CppBook!"</span>;
+    <span class="keyword">return</span> 0;
+}</pre>
+          <div class="terminal-output">✓ Process exited with code 0 · 0.04s</div>
+        </div>
+      </section>
+
+      <section id="architecture" class="section">
+        <div class="eyebrow">UNDER THE HOOD</div><h2>How CppBook executes cells.</h2>
+        <div class="flow">
+          <div><strong>Notebook cells</strong><small>Target cell + previous code</small></div><i>→</i>
+          <div><strong>Source generator</strong><small>Includes, globals, functions, statements</small></div><i>→</i>
+          <div><strong>Temporary main.cpp</strong><small>#line mappings preserve diagnostics</small></div><i>→</i>
+          <div><strong>C++ compiler</strong><small>Isolated temporary directory</small></div><i>→</i>
+          <div><strong>Process</strong><small>stdout · stderr · status · timing</small></div>
+        </div>
+        <p class="muted-copy">CppBook uses a practical compile-and-replay kernel. It behaves like a notebook for common top-to-bottom C++ workflows, but it is not a true persistent interpreter such as Cling.</p>
+      </section>
+
+      <section id="shortcuts" class="section">
+        <div class="eyebrow">KEYBOARD</div><h2>Shortcuts</h2>
+        <div class="shortcut-list">
+          <div><span>Run current cell</span><kbd>Ctrl / Cmd</kbd><b>+</b><kbd>Enter</kbd></div>
+          <div><span>Run & select next</span><kbd>Shift</kbd><b>+</b><kbd>Enter</kbd></div>
+          <div><span>Run & insert below</span><kbd>Alt</kbd><b>+</b><kbd>Enter</kbd></div>
+          <div><span>Save</span><kbd>Ctrl / Cmd</kbd><b>+</b><kbd>S</kbd></div>
+          <div><span>Command palette</span><kbd>Ctrl / Cmd</kbd><b>+</b><kbd>Shift</kbd><b>+</b><kbd>P</kbd></div>
+        </div>
+      </section>
+
+      <section id="config" class="section">
+        <div class="eyebrow">CONFIGURATION</div><h2>Environment variables</h2>
+        <div class="code-panel"><code>BACKEND_PORT<br>FRONTEND_PORT<br>CPP_COMPILER<br>EXECUTION_TIMEOUT<br>WORKSPACE_DIR<br>CPP_STANDARD<br>VITE_API_BASE_URL<br>VITE_ENABLE_VARIABLE_INSPECTOR</code></div>
+      </section>
+
+      <section id="security" class="section warning-section">
+        <div class="eyebrow">SECURITY</div><h2>Designed for local development.</h2>
+        <p>CppBook executes arbitrary local C++ code in child processes. It uses temporary execution directories, timeouts, process termination, limited environment propagation and cleanup.</p>
+        <div class="notice warning"><b>Do not expose the current backend publicly.</b> Shared/public deployments should add stronger sandboxing such as containers or OS-level isolation, CPU/memory quotas, filesystem isolation and network restrictions.</div>
+      </section>
+
+      <section id="faq" class="section">
+        <div class="eyebrow">FAQ</div><h2>Common questions</h2>
+        <details open><summary>Does CppBook require Python after installation?</summary><p>The desktop shell is designed to start the packaged backend automatically. The current build still expects a C++ compiler such as g++ to be available on the target machine.</p></details>
+        <details><summary>Is this a true persistent C++ interpreter?</summary><p>No. CppBook uses compile-and-replay. It preserves normal notebook state by rebuilding and replaying earlier cells for the target cell.</p></details>
+        <details><summary>Can I use it offline?</summary><p>The core notebook experience is local. Optional future AI functionality is designed as an extension rather than a requirement for running C++ notebooks.</p></details>
+        <details><summary>What is a .cppnb file?</summary><p>It is CppBook's notebook format for storing code and Markdown cells and their notebook structure.</p></details>
+      </section>
+
+      <footer>
+        <div><b>CppBook</b><span>Local C++ notebook development environment.</span></div>
+        <span>Documentation · v1.0.0</span>
+      </footer>
+    </main>
+  </div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
